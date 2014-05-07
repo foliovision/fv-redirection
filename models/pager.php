@@ -130,7 +130,7 @@ class Redirection_Log_Table extends WP_List_Table {
 
 		$table = $wpdb->prefix.'redirection_logs';
 
-		$rows        = $wpdb->get_results( "SELECT * FROM {$table} ".$where_cond.$wpdb->prepare( " ORDER BY $orderby $order LIMIT %d,%d", $this->get_pagenum() - 1, $per_page ) );
+		$rows        = $wpdb->get_results( "SELECT * FROM {$table} ".$where_cond.$wpdb->prepare( " ORDER BY $orderby $order LIMIT %d,%d", ($this->get_pagenum() - 1) * $per_page, $per_page ) );
 		$total_items = $wpdb->get_var( "SELECT COUNT(*) FROM {$table}".$where_cond );
 
 		$this->items = array();

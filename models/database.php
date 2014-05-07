@@ -129,11 +129,15 @@ class RE_Database {
 			$wpdb->insert( $wpdb->prefix.'redirection_groups', array( 'name' => __( 'Redirections' ), 'module_id' => 1, 'position' => 0 ) );
 			$wpdb->insert( $wpdb->prefix.'redirection_groups', array( 'name' => __( 'Modified Posts' ), 'module_id' => 1, 'position' => 1 ) );
 
-			$options = get_option( 'redirection_options' );
-			$options['monitor_post']     = 2;
-			$options['monitor_category'] = 2;
+			/*
+			 * DISABLED: fv - riso
+			 */
+			
+			//$options = get_option( 'redirection_options' );
+			//$options['monitor_post']     = 2;
+			//$options['monitor_category'] = 2;
 
-			update_option( 'redirection_options', $options );
+			//update_option( 'redirection_options', $options );
 		}
 	}
 

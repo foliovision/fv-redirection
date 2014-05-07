@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Redirection
+Plugin Name: FV Redirection
 Plugin URI: http://urbangiraffe.com/plugins/redirection/
-Description: Manage all your 301 redirects and monitor 404 errors
+Description: Manage all your 301 redirects and monitor 404 errors (with Foliopress default settings)
 Version: 2.3.4
 Author: John Godley
 Author URI: http://urbangiraffe.com
@@ -172,7 +172,7 @@ class Redirection extends Redirection_Plugin {
 			'support'           => false,
 			'log_redirections'  => true,
 			'log_404s'          => true,
-			'expire'            => 0,
+			'expire'            => 60,
 			'token'             => '',
 			'monitor_new_posts' => false,
 			'monitor_post'      => 0,
