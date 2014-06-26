@@ -308,7 +308,9 @@ class RE_Pager
 	{
 		// Remove all pager params from the url
 		$this->id  = $id;
-		$this->url = $url;
+		//url not updating properly // fix 26/6/2013
+		//url parameter in function's call is redundant now
+		$this->url = $this->curPageURL();
 
 		if (isset ($data['curpage']))
 			$this->current_page = intval ($data['curpage']);
@@ -316,7 +318,7 @@ class RE_Pager
 		global $user_ID;
 
 		if (isset ($data['perpage']))
-		{
+		{				
 			$this->per_page = intval ($data['perpage']);
 			$per_page[get_class ($this)][$this->id] = $this->per_page;
 		}
@@ -329,7 +331,7 @@ class RE_Pager
 			if (isset ($this->order_tags[$this->order_by]))
 				$this->order_by = $this->order_tags[$this->order_by];
 		}
-
+		
 		$this->order_direction = $direction;
 		$this->order_original  = $orderby;
 		if (isset ($data['order']))
@@ -341,20 +343,41 @@ class RE_Pager
 		$this->url = str_replace ('&&amp;', '&amp;', $this->url);
 	}
 
-
+	
+	function curPageURL() {
+		
+		$pageURL = 'http';
+		if ($_SERVER["HTTPS"] == "on") 
+			$pageURL .= "s";
+			
+		$pageURL .= "://";
+		if ($_SERVER["SERVER_PORT"] != "80"){
+			$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+		} else {
+			$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		}
+		
+		return $pageURL;
+	}
+	
+	
 	/**
 	 * Set the total number of entries that match the conditions
 	 *
 	 * @param int $total Count
-	 * @return void
+	 * @return bool Current page change
 	 **/
 
 	function set_total ($total)
 	{
 		$this->total = $total;
 
-		if ($this->current_page <= 0 || $this->current_page > $this->total_pages ())
+		if ($this->current_page <= 0 || $this->current_page > $this->total_pages ()){
 			$this->current_page = 1;
+			return true;
+		}
+		
+		return false;
 	}
 
 

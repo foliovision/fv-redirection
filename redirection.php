@@ -3,7 +3,7 @@
 Plugin Name: FV Redirection
 Plugin URI: http://urbangiraffe.com/plugins/redirection/
 Description: Manage all your 301 redirects and monitor 404 errors (with Foliopress default settings)
-Version: 2.3.4
+Version: 2.3.4.1
 Author: John Godley
 Author URI: http://urbangiraffe.com
 ============================================================================================================
@@ -29,7 +29,7 @@ include dirname( __FILE__ ).'/models/action.php';
 include dirname( __FILE__ ).'/models/monitor.php';
 include dirname( __FILE__ ).'/modules/wordpress.php';
 
-define( 'REDIRECTION_VERSION', '2.3.1' );
+define( 'REDIRECTION_VERSION', '2.3.4.1' );
 
 if ( class_exists( 'Redirection' ) )
 	return;
@@ -324,7 +324,7 @@ class Redirection extends Redirection_Plugin {
 
 		$pager = new RE_Pager( $_GET, admin_url( add_query_arg( array(), 'tools.php?page=redirection.php' ) ), 'position', 'ASC' );
 		$items = Red_Item::get_by_group( $group, $pager );
-
+		
   		$this->render_admin( 'item_list', array( 'options' => $this->get_options(), 'items' => $items, 'pager' => $pager, 'group' => Red_Group::get( $group ), 'groups' => Red_Group::get_for_select(), 'date_format' => get_option( 'date_format' ) ) );
 	}
 
