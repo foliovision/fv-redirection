@@ -115,7 +115,7 @@ class Redirection extends Redirection_Plugin {
 	}
 
 	function admin_menu() {
-  		add_management_page( __( "Redirection", 'redirection' ), __( "Redirection", 'redirection' ), "administrator", basename( __FILE__ ), array( &$this, "admin_screen" ) );
+  		add_management_page( __( "FV Redirection", 'redirection' ), __( "FV Redirection", 'redirection' ), "administrator", basename( __FILE__ ), array( &$this, "admin_screen" ) );
 	}
 
 	function expire_logs() {

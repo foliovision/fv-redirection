@@ -347,7 +347,7 @@ class RE_Pager
 	function curPageURL() {
 		
 		$pageURL = 'http';
-		if ($_SERVER["HTTPS"] == "on") 
+		if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") 
 			$pageURL .= "s";
 			
 		$pageURL .= "://";
@@ -373,7 +373,7 @@ class RE_Pager
 		$this->total = $total;
 
 		if ($this->current_page <= 0 || $this->current_page > $this->total_pages ()){
-			$this->current_page = 1;
+			$this->current_page = $this->total_pages() ;
 			return true;
 		}
 		
