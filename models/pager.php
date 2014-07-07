@@ -121,8 +121,8 @@ class Redirection_Log_Table extends WP_List_Table {
 		elseif ( $type == 'redirect' )
 			$where[] = $wpdb->prepare( 'redirection_id=%d', $id );
 
-		if ( isset( $_POST['s'] ) )
-			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.like_escape( stripslashes( $_POST['s'] ) ).'%' );
+		if ( isset( $_GET['s'] ) )
+			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.like_escape( stripslashes( $_GET['s'] ) ).'%' );
 
 		$where_cond = "";
 		if ( count( $where ) > 0 )
@@ -250,8 +250,8 @@ class Redirection_404_Table extends WP_List_Table {
 			$order = 'desc';
 
 		$where = array();
-		if ( isset( $_POST['s'] ) )
-			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.$_POST['s'].'%' );
+		if ( isset( $_GET['s'] ) )
+			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.$_GET['s'].'%' );
 
 		if ( $restrict_by_ip !== false )
 			$where[] = $wpdb->prepare( 'ip=INET_ATON(%s)', $restrict_by_ip );
@@ -310,7 +310,7 @@ class RE_Pager
 		$this->id  = $id;
 		//url not updating properly // fix 26/6/2013
 		//url parameter in function's call is redundant now
-		$this->url = $this->curPageURL();
+		$this->url = $url;
 
 		if (isset ($data['curpage']))
 			$this->current_page = intval ($data['curpage']);
@@ -341,23 +341,6 @@ class RE_Pager
 		$this->steps = array (10, 25, 50, 100, 250);
 		$this->url = str_replace ('&', '&amp;', $this->url);
 		$this->url = str_replace ('&&amp;', '&amp;', $this->url);
-	}
-
-	
-	function curPageURL() {
-		
-		$pageURL = 'http';
-		if ( isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") 
-			$pageURL .= "s";
-			
-		$pageURL .= "://";
-		if ($_SERVER["SERVER_PORT"] != "80"){
-			$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-		} else {
-			$pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-		}
-		
-		return $pageURL;
 	}
 	
 	

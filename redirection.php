@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: FV Redirection
+Plugin Name: Redirection
 Plugin URI: http://urbangiraffe.com/plugins/redirection/
-Description: Manage all your 301 redirects and monitor 404 errors (with Foliopress default settings)
+Description: Manage all your 301 redirects and monitor 404 errors
 Version: 2.3.4.1
 Author: John Godley
 Author URI: http://urbangiraffe.com
@@ -115,7 +115,7 @@ class Redirection extends Redirection_Plugin {
 	}
 
 	function admin_menu() {
-  		add_management_page( __( "FV Redirection", 'redirection' ), __( "FV Redirection", 'redirection' ), "administrator", basename( __FILE__ ), array( &$this, "admin_screen" ) );
+  		add_management_page( __( "Redirection", 'redirection' ), __( "Redirection", 'redirection' ), "administrator", basename( __FILE__ ), array( &$this, "admin_screen" ) );
 	}
 
 	function expire_logs() {
@@ -306,7 +306,7 @@ class Redirection extends Redirection_Plugin {
 		if ( $module == 0 )
 			$module = Red_Module::get_first_id();
 
-		$pager = new RE_Pager( $_GET, admin_url( add_query_arg( array( 'sub' => 'groups' ), 'tools.php?page=redirection.php' ) ), 'position', 'ASC' );
+		$pager = new RE_Pager( $_GET, red_get_url(), 'position', 'ASC' );
 		$items = Red_Group::get_all( $module, $pager );
 
 		$module = Red_Module::get( $module );
@@ -322,7 +322,7 @@ class Redirection extends Redirection_Plugin {
 		if ( $group == 0 )
 			$group = Red_Group::get_first_id();
 
-		$pager = new RE_Pager( $_GET, admin_url( add_query_arg( array(), 'tools.php?page=redirection.php' ) ), 'position', 'ASC' );
+		$pager = new RE_Pager( $_GET, red_get_url(), 'position', 'ASC' );
 		$items = Red_Item::get_by_group( $group, $pager );
 		
   		$this->render_admin( 'item_list', array( 'options' => $this->get_options(), 'items' => $items, 'pager' => $pager, 'group' => Red_Group::get( $group ), 'groups' => Red_Group::get_for_select(), 'date_format' => get_option( 'date_format' ) ) );

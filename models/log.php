@@ -104,8 +104,8 @@ class RE_Log {
 		elseif ( $type == 'redirect' )
 			$where[] = $wpdb->prepare( 'redirection_id=%d', $id );
 
-		if ( isset( $_POST['s'] ) )
-			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.$_POST['s'].'%' );
+		if ( isset( $_GET['s'] ) )
+			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.$_GET['s'].'%' );
 
 		$where_cond = "";
 		if ( count( $where ) > 0 )
@@ -168,8 +168,8 @@ class RE_404 {
 		global $wpdb;
 
 		$where = array();
-		if ( isset( $_POST['s'] ) )
-			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.$_POST['s'].'%' );
+		if ( isset( $_GET['s'] ) )
+			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.$_GET['s'].'%' );
 
 		$where_cond = "";
 		if ( count( $where ) > 0 )

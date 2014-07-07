@@ -7,8 +7,19 @@
 
 	<?php $this->render_admin( 'submenu', array( 'options' => $options ) ); ?>
 
-	<form method="POST" action="">
+	<form method="GET" action="">
+		<?php if ( isset( $_GET['sub'] ) ): ?>
+			<input type="hidden" name="sub" value="<?php echo esc_attr( $_GET['sub'] ); ?>" />
+		<?php endif; ?>
+		<?php if ( isset( $_GET['page'] ) ): ?>
+			<input type="hidden" name="page" value="<?php echo esc_attr( $_GET['page'] ); ?>" />
+		<?php endif; ?>
+		<?php if ( isset( $_GET['paged'] ) ): ?>
+			<input type="hidden" name="paged" value="<?php echo esc_attr( $_GET['paged'] ); ?>" />
+		<?php endif; ?>
 		<?php $table->search_box( __( 'Search' ), 'search_id' ); ?>
+	</form>	
+	<form method="POST" action="">
 		<?php $table->display(); ?>
 	</form>
 
@@ -23,10 +34,6 @@
 
 	<form action="" method="post" accept-charset="utf-8">
 		<?php wp_nonce_field ('redirection-process_logs'); ?>
-
-		<?php if ( isset( $_POST['s'] ) ): ?>
-			<input type="hidden" name="s" value="<?php echo esc_attr( $_POST['s'] ); ?>" />
-		<?php endif; ?>
 
 		<input class="button-primary" type="submit" name="deleteall" value="<?php _e ('Delete Logs', 'redirection'); ?>"/>
 	</form>
